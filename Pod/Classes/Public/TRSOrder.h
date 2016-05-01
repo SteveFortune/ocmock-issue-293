@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class TRSCheckoutViewController;
 @class TRSConsumer;
 @class TRSProduct;
 
@@ -95,6 +96,8 @@ typedef NS_ENUM(NSUInteger, TRSNextActionFlag) {
  information for the user & process necessary interaction in a webview.
  */
 @interface TRSOrder : NSObject
+
+@property (nonatomic, strong) TRSCheckoutViewController *checkoutVC;
 
 /**
  The Trusted Shops ID associated with your shop.

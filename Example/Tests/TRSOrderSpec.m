@@ -308,6 +308,7 @@ describe(@"TRSOrder", ^{
 					__block NSError *anError = [NSError errorWithDomain:@"nomatter" code:9 userInfo:nil];
 					__block NSNumber *wrappedBool = [NSNumber numberWithBool:NO];
 					OCMStub([coVCmock processOrder:[OCMArg any] onCompletion:([OCMArg invokeBlockWithArgs:wrappedBool, anError, nil])]);
+                    helperPointer.checkoutVC = coVCmock;
 					void (^aCallback)(NSError * _Nullable error) = ^void(NSError * _Nullable error) {
 						expect(error).toNot.beNil();
 						expect(helperPointer.nextActionFlag).to.equal(TRSValidationPending);

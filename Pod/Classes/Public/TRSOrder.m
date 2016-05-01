@@ -9,8 +9,8 @@
 #import "TRSOrder.h"
 #import "TRSConsumer.h"
 #import "TRSConsumer+Private.h"
-#import "TRSCheckoutViewController.h"
 #import "TRSErrors.h"
+#import "TRSCheckoutViewController.h"
 
 @interface TRSOrder ()
 
@@ -111,10 +111,10 @@
 	self.orderState &= (~TRSOrderUnprocessed);
 	self.orderState |= TRSOrderProcessing;
 	
-	TRSCheckoutViewController *checkoutVC = [[TRSCheckoutViewController alloc] initWithNibName:nil bundle:nil];
+    TRSCheckoutViewController *checkoutVC = self.checkoutVC == nil ? [[TRSCheckoutViewController alloc] initWithNibName:nil bundle:nil] : self.checkoutVC;
     NSLog(@"--- Checkout controller, %@", checkoutVC);
 	[checkoutVC processOrder:self onCompletion:^(BOOL canceled, NSError * _Nullable error) {
-        NSLog(@"--- Order processed");
+        NSLog(@"--- Order processed: %d, %@", canceled, error);
 		if (error) {
 			// check state & adapt flags
 			[self areFieldsComplete]; // this sets the incomplete flag if needed.
