@@ -52,6 +52,7 @@ static const CGSize minContentViewSize = {288.0, 339.0}; // for now: this is mor
 }
 
 - (void)processOrder:(nonnull TRSOrder *)order onCompletion:(nullable void (^)(BOOL canceled, NSError *_Nullable error))onCompletion {
+    NSLog(@"--- Controller implementation called, %@", onCompletion);
 	UIViewController *rootVC = [[[UIApplication sharedApplication] keyWindow] rootViewController];
 	if (!rootVC) {
 		NSError *error = [NSError errorWithDomain:TRSErrorDomain
@@ -95,7 +96,10 @@ static const CGSize minContentViewSize = {288.0, 339.0}; // for now: this is mor
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-	if (self.completionBlock) self.completionBlock(self.tappedToCancel, nil);
+    if (self.completionBlock) {
+        NSLog(@"--- Completion block called, %d", self.tappedToCancel);
+        self.completionBlock(self.tappedToCancel, nil);
+    }
 	self.tappedToCancel = YES; // reset to default...
 }
 

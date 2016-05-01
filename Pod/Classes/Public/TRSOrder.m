@@ -112,8 +112,9 @@
 	self.orderState |= TRSOrderProcessing;
 	
 	TRSCheckoutViewController *checkoutVC = [[TRSCheckoutViewController alloc] initWithNibName:nil bundle:nil];
+    NSLog(@"--- Checkout controller, %@", checkoutVC);
 	[checkoutVC processOrder:self onCompletion:^(BOOL canceled, NSError * _Nullable error) {
-		
+        NSLog(@"--- Order processed");
 		if (error) {
 			// check state & adapt flags
 			[self areFieldsComplete]; // this sets the incomplete flag if needed.

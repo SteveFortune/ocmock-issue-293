@@ -301,19 +301,20 @@ describe(@"TRSOrder", ^{
 				
 				// for some reason this test fails: the block argument of processOrder... is not called
 				// with the arguments defined here, which is odd. I'll file an issue with OCMock
-//				it(@"it has correct states afterwards when the checkout went wrong", ^{
-//					id coVCmock = OCMClassMock([TRSCheckoutViewController class]);
-//					__block TRSOrder *helperPointer = aTestOrder;
-//					__block NSError *anError = [NSError errorWithDomain:@"nomatter" code:9 userInfo:nil];
-//					__block NSNumber *wrappedBool = [NSNumber numberWithBool:NO];
-//					OCMStub([coVCmock processOrder:[OCMArg any] onCompletion:([OCMArg invokeBlockWithArgs:wrappedBool, anError, nil])]);
-//					void (^aCallback)(NSError * _Nullable error) = ^void(NSError * _Nullable error) {
-//						expect(error).toNot.beNil();
-//						expect(helperPointer.nextActionFlag).to.equal(TRSValidationPending);
-//						expect(helperPointer.orderState & TRSOrderProcessing).to.equal(TRSOrderProcessing);
-//					};
-//					[helperPointer finishWithCompletionBlock:aCallback];
-//				});
+				it(@"it has correct states afterwards when the checkout went wrong", ^{
+					id coVCmock = OCMClassMock([TRSCheckoutViewController class]);
+                    NSLog(@"--- Mock controller %@", coVCmock);
+					__block TRSOrder *helperPointer = aTestOrder;
+					__block NSError *anError = [NSError errorWithDomain:@"nomatter" code:9 userInfo:nil];
+					__block NSNumber *wrappedBool = [NSNumber numberWithBool:NO];
+					OCMStub([coVCmock processOrder:[OCMArg any] onCompletion:([OCMArg invokeBlockWithArgs:wrappedBool, anError, nil])]);
+					void (^aCallback)(NSError * _Nullable error) = ^void(NSError * _Nullable error) {
+						expect(error).toNot.beNil();
+						expect(helperPointer.nextActionFlag).to.equal(TRSValidationPending);
+						expect(helperPointer.orderState & TRSOrderProcessing).to.equal(TRSOrderProcessing);
+					};
+					[helperPointer finishWithCompletionBlock:aCallback];
+				});
 
 			});
 			
